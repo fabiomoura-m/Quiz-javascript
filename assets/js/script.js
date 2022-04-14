@@ -15,7 +15,7 @@ function showQuestion() {
     document.querySelector('.scoreArea').style.display = 'none';
     document.querySelector('.questionArea').style.display = 'block';
 
-    document.querySelector('.question').innerHTML = q.question;
+    document.querySelector('.question').innerHTML = query.question;
     let optionsHtml = '';
     for (let i in query.options) {
       optionsHtml += `<div data-op="${i}" class="option"><span>${
@@ -28,7 +28,7 @@ function showQuestion() {
       item.addEventListener('click', optionClickEvent);
     });
   } else {
-    // acabaram as questoes
+    finishQuiz();
   }
 }
 
@@ -39,4 +39,29 @@ function optionClickEvent(e) {
   }
   currentQuestion++;
   showQuestion();
+}
+
+function finishQuiz() {
+  let score = Math.floor((correctAnswers / questions.length) * 100);
+
+  if (score < 40) {
+    document.querySelector('.scoreText1').innerHTML = 'Tá ruim hein?!';
+    document.querySelector('.scorePct').style.color = '#FF0000F';
+  } else if (score >= 40 && score < 70) {
+    document.querySelector('.scoreText1').innerHTML =
+      'Muito bom, mas poderia melhorar';
+    document.querySelector('.scorePct').style.color = 'FFFF00';
+  } else if (score >= 70) {
+    document.querySelector('.scoreText1').innerHTML = 'Parabéns';
+    document.querySelector('.scorePct').style.color = '#0D630D';
+  }
+
+  document.querySelector('.scorePct').innerHTML = `Acertou ${score}%`;
+  document.querySelector(
+    '.scoreText2'
+  ).innerHTML = `Você respondeu ${questions.length} questões e acertou ${correctAnswers}.`;
+
+  document.querySelector('.questionArea').style.display = 'none';
+  document.querySelector('.scoreArea').style.display = 'block';
+  document.querySelector('.progress--bar').style.width = '100%';
 }
