@@ -4,6 +4,9 @@ let correctAnswers = 0;
 
 showQuestion();
 
+//Events
+document.querySelector('.scoreArea button').addEventListener('click', reset);
+
 // Functions
 function showQuestion() {
   if (questions[currentQuestion]) {
@@ -46,13 +49,13 @@ function finishQuiz() {
 
   if (score < 40) {
     document.querySelector('.scoreText1').innerHTML = 'Tá ruim hein?!';
-    document.querySelector('.scorePct').style.color = '#FF0000F';
+    document.querySelector('.scorePct').style.color = '#FF0000';
   } else if (score >= 40 && score < 70) {
     document.querySelector('.scoreText1').innerHTML =
-      'Muito bom, mas poderia melhorar';
-    document.querySelector('.scorePct').style.color = 'FFFF00';
+      'Muito bom! Continue praticando';
+    document.querySelector('.scorePct').style.color = '#FFFF00';
   } else if (score >= 70) {
-    document.querySelector('.scoreText1').innerHTML = 'Parabéns';
+    document.querySelector('.scoreText1').innerHTML = 'Parabéns!';
     document.querySelector('.scorePct').style.color = '#0D630D';
   }
 
@@ -64,4 +67,10 @@ function finishQuiz() {
   document.querySelector('.questionArea').style.display = 'none';
   document.querySelector('.scoreArea').style.display = 'block';
   document.querySelector('.progress--bar').style.width = '100%';
+}
+
+function reset() {
+  currentQuestion = 0;
+  correctAnswers = 0;
+  showQuestion();
 }
