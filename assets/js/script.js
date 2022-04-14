@@ -1,5 +1,6 @@
 // Initial Data
 let currentQuestion = 0;
+let correctAnswers = 0;
 
 showQuestion();
 
@@ -15,12 +16,25 @@ function showQuestion() {
 
     let optionsHtml = '';
     for (let i in q.options) {
-      optionsHtml += `<div class="option"><span>${parseInt(i) + 1}</span>${
-        q.options[i]
-      }</div>`;
+      optionsHtml += `<div data-op="${i}" class="option"><span>${
+        parseInt(i) + 1
+      }</span>${q.options[i]}</div>`;
     }
     document.querySelector('.options').innerHTML = optionsHtml;
+
+    document.querySelectorAll('.options .option').forEach(item => {
+      item.addEventListener('click', optionClickEvent);
+    });
   } else {
     // acabaram as questoes
   }
+}
+
+function optionClickEvent(e) {
+  let clickedOption = parseInt(e.target.getAttribute('data-op'));
+  if (questions[currentQuestion].answer === clickedOption) {
+    correctAnswers++;
+  }
+  currentQuestion++;
+  showQuestion();
 }
