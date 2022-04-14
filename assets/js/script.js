@@ -7,18 +7,20 @@ showQuestion();
 // Functions
 function showQuestion() {
   if (questions[currentQuestion]) {
-    let q = questions[currentQuestion];
+    let query = questions[currentQuestion];
+
+    let percentage = Math.floor((currentQuestion / questions.length) * 100);
+    document.querySelector('.progress--bar').style.width = `${percentage}%`;
 
     document.querySelector('.scoreArea').style.display = 'none';
     document.querySelector('.questionArea').style.display = 'block';
 
     document.querySelector('.question').innerHTML = q.question;
-
     let optionsHtml = '';
-    for (let i in q.options) {
+    for (let i in query.options) {
       optionsHtml += `<div data-op="${i}" class="option"><span>${
         parseInt(i) + 1
-      }</span>${q.options[i]}</div>`;
+      }</span>${query.options[i]}</div>`;
     }
     document.querySelector('.options').innerHTML = optionsHtml;
 
